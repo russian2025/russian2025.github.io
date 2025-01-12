@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        Изучаем русский язык!
+        <div class=" spacer"></div>
+        <textarea id="textInput" placeholder="Здесь вы увидете текст произнесенный Вами"></textarea>
+        <div class=" spacer"></div>
+        <button id="sendButton" onclick="speech()">Хотите что нибудь сказать? Нажмите здесь - и говорите</button>
+        <div class=" spacer"></div>
+        <textarea id="textOutput" placeholder="Здесь Вы увидете текст произнесенный Искуственным Интелектом (ИИ)"></textarea>
+        <div class=" spacer"></div>
+        <button onclick="talk(outp.value)">Желаете послушать еще раз что сказал ИИ - нажмите здесь</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+
+let ak = prompt('Enter apiKey');
+
+    </script>
+
+</body>
+</html>
