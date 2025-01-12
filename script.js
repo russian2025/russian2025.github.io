@@ -7,19 +7,19 @@
         let speechSynthesis = window.speechSynthesis;                // sinteză voce
 
         const speech = () => {
-            speechRecognizer.lang = 'ro-RO';
+            speechRecognizer.lang = 'ru-RU';
             // speechRecognizer.continuous = true;                      
             // speechRecognizer.interimResults = true;                  
             speechRecognizer.start();
-            sendButton.innerText = 'Vorbiți...';
+            sendButton.innerText = 'Говорите...';
         }
 
         const talk = (text) => {
             let textToTalk = new SpeechSynthesisUtterance(text);
             textToTalk.onend = function(event) {
-                sendButton.innerText = 'Doriți să mai spuneți ceva? Apăsați aici - și vorbiți';
+                sendButton.innerText = 'Хотите еще что нибудь спросить? Нажмите здесь - и говорите';
             };
-            textToTalk.lang = 'ro-RO';
+            textToTalk.lang = 'ru-RU';
             textToTalk.rate = 0.5;
             // textToTalk.pitch = 1.0;
             speechSynthesis.speak(textToTalk);
@@ -32,7 +32,7 @@
 
         const requestFunc = () => {
             if (inp.value) {
-                sendButton.innerText = 'O clipă...';
+                sendButton.innerText = 'Минуточку...';
                 let message = {
                     "role": "user",
                     "content": inp.value
