@@ -54,7 +54,7 @@
                     })
                     .catch(error => {
                         console.error("Error request:", error.message);
-                        sendButton.innerText = 'Error. Try again.';
+                        sendButton.innerText = 'Erroare. Reincercati.';
 
                     });
             }
