@@ -8,8 +8,6 @@
 
         const speech = () => {
             speechRecognizer.lang = 'ru-RU';
-            // speechRecognizer.continuous = true;                      
-            // speechRecognizer.interimResults = true;                  
             speechRecognizer.start();
             sendButton.innerText = 'Говорите...';
         }
@@ -21,7 +19,6 @@
             };
             textToTalk.lang = 'ru-RU';
             textToTalk.rate = 0.5;
-            // textToTalk.pitch = 1.0;
             speechSynthesis.speak(textToTalk);
         }
 
@@ -39,7 +36,6 @@
                 }
                 conversation.push(message);
 
-                // Transmitere la server
                 axios.post('http://openai-server-8ovt.onrender.com/api/chat', { messages: conversation })
                     .then(response => {
                         let aiResponse = response.data.choices[0].message.content;
