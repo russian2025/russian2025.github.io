@@ -36,7 +36,7 @@
                 }
                 conversation.push(message);
 
-                axios.post('http://openai-server-8ovt.onrender.com/api/chat', { messages: conversation })
+                axios.post('https://openai-server-8ovt.onrender.com/api/chat', { messages: conversation })
                     .then(response => {
                         let aiResponse = response.data.choices[0].message.content;
                         outp.value = aiResponse;
