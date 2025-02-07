@@ -33,8 +33,7 @@ const talk = (text) => {
  sendButton.innerText = 'Хотите еще что нибудь спросить? Нажмите здесь - и говорите';
  };
  textToTalk.lang = 'ru-RU';
- textToTalk.rate = 0.5;
- textToTalk.pitch = 5.0;
+ textToTalk.rate = 1;
  text2speech.speak(textToTalk);
 }
 
