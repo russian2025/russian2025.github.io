@@ -34,7 +34,7 @@ const talk = (text) => {
  };
  textToTalk.lang = 'ru-RU';
  textToTalk.rate = 0.5;
- textToTalk.pitch = 2.0;
+ textToTalk.pitch = 5.0;
  text2speech.speak(textToTalk);
 }
 
