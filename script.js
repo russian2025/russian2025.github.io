@@ -1,4 +1,5 @@
 let token = null;
+let lastAudio = null;
 let speechSpeed = 0.7;  
 
 function repeatLast() {
@@ -33,7 +34,6 @@ let outp = window.document.getElementById('textOutput');
 let conversation = [];
 
 let speech2text = new webkitSpeechRecognition();
-let text2speech = window.speechSynthesis;
 
 const speech = () => {
  speech2text.lang = 'ru-RU';
