@@ -56,7 +56,7 @@ const talk = async (text) => {
 
     audio.onended = () => {
       sendButton.innerText =
-        'Doriți să mai spuneți ceva? Apăsați aici - și vorbiți';
+        'Хотите что-нибудь ещё сказать? Нажмите сюда - и говорите';
     };
 
   } catch (e) {
