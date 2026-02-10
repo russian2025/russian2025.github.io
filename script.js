@@ -1,14 +1,29 @@
-﻿let token = null;
-fetch('https://openai-server-8ovt.onrender.com/checka',
+let token = null;
+let speechSpeed = 0.7;  
+
+function repeatLast() {
+  if (!lastAudio) return;
+  new Audio(lastAudio).play();
+}
+
+const API_BASE = 'https://openai-server-8ovt.onrender.com';
+const params = new URLSearchParams(window.location.search);
+
+fetch(`${API_BASE}/checka`,
 {
  method: 'POST',
  headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ aaa: new URLSearchParams(window.location.search).get('aaa') })
+ body: JSON.stringify({
+  aaa: params.get('aaa'),
+  t: params.get('t'),
+  s: params.get('s')
+ })
 })
+
 .then(response => response.json())
 .then(data => {
  if (data.success) token = data.token;
- else alert('Scuzati - nu aveti acces...');
+ else alert('Sorry.');
 })
 .catch(error => console.error('Eroare:', error));
 
@@ -26,15 +41,29 @@ const speech = () => {
  sendButton.innerText = 'Говорите...';
 }
 
-const talk = (text) => {
- let textToTalk = new SpeechSynthesisUtterance(text);
- textToTalk.onend = function(event) {
- sendButton.innerText = 'Хотите еще что нибудь спросить? Нажмите здесь - и говорите';
- };
- textToTalk.lang = 'ru-RU';
- textToTalk.rate = 1;
- text2speech.speak(textToTalk);
-}
+const talk = async (text) => {
+  try {
+    const res = await axios.post(`${API_BASE}/api/tts`, {
+      text: text,
+      token: token,
+      speed: speechSpeed
+    });
+
+    lastAudio = res.data.audio;
+
+    const audio = new Audio(lastAudio);
+    audio.play();
+
+    audio.onended = () => {
+      sendButton.innerText =
+        'Doriți să mai spuneți ceva? Apăsați aici - și vorbiți';
+    };
+
+  } catch (e) {
+    console.error('TTS error:', e);
+    sendButton.innerText = 'Eroare TTS';
+  }
+};
 
 speech2text.onresult = (event) => {                    
  inp.value = event.results[0][0].transcript;
@@ -45,20 +74,22 @@ const requestFunc = () => {
   sendButton.innerText = 'Минуточку...';
   let message = { "role": "user", "content": inp.value };
   conversation.push(message);
-  axios.post('https://openai-server-8ovt.onrender.com/api/chat',
+
+  axios.post(`${API_BASE}/api/chat`, 
   {
    messages: conversation,
    token: token
   })
+
   .then(response => {
    let aiResponse = response.data.choices[0].message.content;
    outp.value = aiResponse;
    conversation.push({ "role": "assistant", "content": aiResponse });
    talk(aiResponse);
   })
-   .catch(error => {
-  console.error("Error request:", error.response?.data || error.message);
-  sendButton.innerText = 'Eroare server';
+  .catch(error => {
+   console.error("Error request:", error);
+   sendButton.innerText = 'Eroare...';
   });
  }
 }
