@@ -31,7 +31,52 @@ fetch(`${API_BASE}/checka`,
 let sendButton = window.document.getElementById('sendButton');
 let inp = window.document.getElementById('textInput');
 let outp = window.document.getElementById('textOutput');
-let conversation = [];
+
+const schoolClass = document.getElementById('schoolClass');
+
+function createInitialPrompt() {
+  const selectedClass = schoolClass.value;
+
+  return `
+Вы — дружелюбный учитель русского языка.
+
+Вы разговариваете с школьником из ${selectedClass} класса.
+
+Адаптируйте свой словарный запас, вопросы и объяснения
+к уровню школьника из класса ${selectedClass}.
+
+Используйте ясные, легко понятные предложения.
+
+Задавайте короткие, интересные вопросы.
+
+Мягко исправляйте ошибки школьника.
+
+Побуждайте школьника говорить по-русски.
+
+Продолжайте разговор на русском языке.
+`;
+}
+
+let conversation = [
+  {
+    role: "system",
+    content: createInitialPrompt()
+  }
+];
+
+schoolClass.addEventListener('change', () => {
+  conversation = [
+    {
+      role: "system",
+      content: createInitialPrompt()
+    }
+  ];
+
+  inp.value = '';
+  outp.value = '';
+  lastAudio = null;
+});
+
 
 let speech2text = new webkitSpeechRecognition();
 
